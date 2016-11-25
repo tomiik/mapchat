@@ -20,3 +20,20 @@
   </div>
 <div>
 </div>
+
+
+<sebm-google-map [latitude]="inputLatitude" [longitude]="inputLongitude">
+  <!--sebm-google-map-marker [latitude]="inputLatitude" [longitude]="inputLongitude"-->
+    <sebm-google-map-info-window *ngFor="let item of items | async"
+                                  [disableAutoPan]="true"
+                                  [isOpen]="true"
+                                  [latitude]="item.position.latitude"
+                                  [longitude]="item.position.longitude"
+                                  [zIndex]="item.time">
+      <strong>
+        {{item.username}}:
+      </strong>
+        {{item.mutter}}
+    </sebm-google-map-info-window>
+  <!--/sebm-google-map-marker-->
+</sebm-google-map>

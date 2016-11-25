@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { Subject } from 'rxjs/Subject';
+//import { Subject } from 'rxjs/Subject';
+//import { SebmGoogleMapInfoWindow } from 'angular2-google-maps/core';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,13 @@ import { Subject } from 'rxjs/Subject';
 export class AppComponent {
   inputMutter: string = '';
   inputTime: number = 0;
-  inputLongitude: number = 0;
-  inputLatitude: number = 0;
+  inputLongitude: number = 7.809007;
+  inputLatitude: number = 51.678418;
   inputAccuracy: number = 0;
   position;
   items: FirebaseListObservable<any>;
+  lat: number = 51.678418;
+  lng: number = 7.809007;
 
   constructor(af: AngularFire) {
     this.items = af.database.list('/mutters');
@@ -22,6 +25,10 @@ export class AppComponent {
   }
   setPosition(position){
     this.position = position;
+    this.inputLongitude = this.position.coords.longitude;
+    this.inputLatitude = this.position.coords.latitude;
+    this.inputAccuracy = this.position.coords.accuracy;
+
     console.log('setPosition()');
   }
   delete(key: string) {
@@ -35,13 +42,11 @@ export class AppComponent {
   }
   addMutter() {
     this.inputTime = Date.now();
-    this.inputLongitude = this.position.coords.longitude;
-    this.inputLatitude = this.position.coords.latitude;
-    this.inputAccuracy = this.position.coords.accuracy;
 
     if ( this.inputMutter !== '') {
       this.items.push(
         {
+          username: 'USERNAME',
           mutter: this.inputMutter,
           time: this.inputTime,
           position: {
