@@ -1,3 +1,22 @@
-<h1>
-  {{title}}
-</h1>
+
+<form (ngSubmit)="enterkey()">
+  <div class="todocard">
+    <input id="new-text" type="text" [(ngModel)]='this.inputMutter' name="inputMutter" placeholder=" mutter here... ">
+    <button id="add-button" (click)="save()">+</button>
+  </div>
+</form>
+  <div *ngFor="let item of items | async">
+    <!--input type="text" [(ngModel)]='item.message' (ngModelChange)="changed(item,$event)"-->
+    <!--input type="text" name='message' [(ngModel)]='item.message'-->
+    <div class="todocard">
+      <div class="message">
+        {{item.mutter}},
+        {{item.time}},
+        {{item.position.longitude}},
+        {{item.position.latitude}},
+      </div>
+      <div class="cross" (click)="delete(item.$key)">x</div>
+    </div>
+  </div>
+<div>
+</div>
